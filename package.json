@@ -1,0 +1,17 @@
+{
+  "name": "app",
+  "private": true,
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets"
+  },
+  "dependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@hotwired/turbo-rails": "^8.0.13",
+    "open-simplex-noise": "^2.5.0",
+    "seedrandom": "^3.0.5",
+    "three": "^0.176.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.3"
+  }
+}
