@@ -13,3 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+  background-color: #000; /* match scene background color */
+}

@@ -59,7 +59,7 @@ export default class extends Controller {
 
   initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x222222);
+    this.scene.background = new THREE.Color(0x000000);
     this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
   }
   initCamera() {

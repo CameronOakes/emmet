@@ -4,4 +4,10 @@ class PagesController < ApplicationController
 
   def logo
   end
+
+  def store
+  end
+
+  def shows
+  end
 end

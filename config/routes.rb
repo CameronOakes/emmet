@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   root "pages#logo"
 
+  get "store", to: "pages#store"
+  get "shows", to: "pages#shows"
+
   # get "logo", to: "pages#logo"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
