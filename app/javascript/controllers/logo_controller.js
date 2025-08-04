@@ -14,6 +14,8 @@ export default class extends Controller {
     this.initScene()
     this.initCamera();
 
+    this.mouse = [.5, .5]; // Default mouse position
+
     // Use a public path relative to your Rails public directory or assets pipeline
     let objToRender = '/tgs.glb'; // Default object to render
     let object;
@@ -48,6 +50,9 @@ export default class extends Controller {
         console.error(error);
       }
     )
+
+    window.addEventListener( 'mousemove', this.onMouseMove.bind(this) );
+
     this.initRenderer();
 
     this.element.appendChild(this.renderer.domElement);
@@ -57,13 +62,19 @@ export default class extends Controller {
     this.animate();
   }
 
+  onMouseMove(event) {
+    this.mouse[0] = (event.clientX / window.innerWidth) * 2 - 1;
+    this.mouse[1] = -(event.clientY / window.innerHeight) * 2 + 1;
+    console.log("Mouse moved:", this.mouse);
+  }
+
   initScene() {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color(0x000000);
     this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
   }
   initCamera() {
-    this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.set(0, 0, 5);
   }
 
@@ -71,6 +82,7 @@ export default class extends Controller {
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+
   }
 
   initLights() {
@@ -82,6 +94,11 @@ export default class extends Controller {
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));
+
+    this.camera.position.x = this.mouse[0] * -10;
+    this.camera.position.y = this.mouse[1] * -10;
+    this.camera.lookAt(0, 0, 0);
+
     if (this.controls) {
       this.controls.update(1.0);
     }
