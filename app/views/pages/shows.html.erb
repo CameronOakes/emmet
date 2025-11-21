@@ -1,0 +1,153 @@
+<div class="shows-container">
+  <h1 class="page-title">UPCOMING_TRANSMISSIONS</h1>
+
+  <div class="calendar-grid">
+    <% @shows.group_by { |s| s.date.strftime("%B %Y") }.each do |month, shows| %>
+      <div class="month-block">
+        <h2 class="month-title"><%= month.upcase %></h2>
+        <ul class="show-list">
+          <% shows.each do |show| %>
+            <li class="show-item">
+              <span class="show-date"><%= show.date.strftime("%d") %></span>
+              <span class="show-title"><%= show.title.upcase %></span>
+              <span class="show-location">@ <%= show.location.upcase %></span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="add-show-form">
+    <h3>INITIATE_NEW_TRANSMISSION</h3>
+    <%= form_with(model: @show, local: true, class: "sci-fi-form") do |f| %>
+      <div class="form-group">
+        <%= f.label :title, "CODENAME" %>
+        <%= f.text_field :title, class: "sci-fi-input" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :date, "TEMPORAL_COORDINATES" %>
+        <%= f.datetime_field :date, class: "sci-fi-input" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :location, "SECTOR" %>
+        <%= f.text_field :location, class: "sci-fi-input" %>
+      </div>
+      <%= f.submit "TRANSMIT", class: "sci-fi-button" %>
+    <% end %>
+  </div>
+</div>
+
+<style>
+  .shows-container {
+    padding: 2rem;
+    color: white;
+    font-family: 'Courier New', monospace;
+  }
+
+  .page-title {
+    text-align: center;
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+    margin-bottom: 3rem;
+    letter-spacing: 4px;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .month-block {
+    border: 1px solid rgba(0, 243, 255, 0.3);
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .month-title {
+    color: var(--neon-blue);
+    border-bottom: 1px solid var(--neon-blue);
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+  }
+
+  .show-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .show-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .show-date {
+    color: var(--neon-pink);
+    font-weight: bold;
+    margin-right: 1rem;
+  }
+
+  .add-show-form {
+    max-width: 500px;
+    margin: 0 auto;
+    border: 1px solid var(--neon-blue);
+    padding: 2rem;
+    background: rgba(0, 20, 40, 0.8);
+  }
+
+  .add-show-form h3 {
+    color: var(--neon-blue);
+    text-align: center;
+    margin-top: 0;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+  }
+
+  .sci-fi-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 243, 255, 0.5);
+    color: white;
+    padding: 0.5rem;
+    font-family: 'Courier New', monospace;
+  }
+
+  .sci-fi-input:focus {
+    outline: none;
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 5px var(--neon-pink);
+  }
+
+  .sci-fi-button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--neon-blue);
+    color: var(--neon-blue);
+    padding: 1rem;
+    cursor: pointer;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+  }
+
+  .sci-fi-button:hover {
+    background: var(--neon-blue);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-blue);
+  }
+</style>

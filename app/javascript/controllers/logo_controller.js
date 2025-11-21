@@ -51,7 +51,7 @@ export default class extends Controller {
       }
     )
 
-    window.addEventListener( 'mousemove', this.onMouseMove.bind(this) );
+    window.addEventListener('mousemove', this.onMouseMove.bind(this));
 
     this.initRenderer();
 
@@ -70,8 +70,9 @@ export default class extends Controller {
 
   initScene() {
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color(0x000000);
-    this.scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+    this.scene.background = new THREE.Color(0x050505);
+    this.scene.fog = new THREE.FogExp2(0x050505, 0.1);
+    this.scene.add(new THREE.AmbientLight(0x404040, 2));
   }
   initCamera() {
     this.camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -82,14 +83,23 @@ export default class extends Controller {
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.enableZoom = false;
 
   }
 
   initLights() {
-    this.directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    this.directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
     this.directionalLight.position.set(500, 500, 500);
     this.directionalLight.castShadow = true;
     this.scene.add(this.directionalLight);
+
+    const pointLight1 = new THREE.PointLight(0x00f3ff, 2, 50);
+    pointLight1.position.set(2, 3, 4);
+    this.scene.add(pointLight1);
+
+    const pointLight2 = new THREE.PointLight(0xff00ff, 2, 50);
+    pointLight2.position.set(-2, -3, 4);
+    this.scene.add(pointLight2);
   }
 
   animate() {

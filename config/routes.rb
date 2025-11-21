@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   get "store", to: "pages#store"
   get "shows", to: "pages#shows"
+  post "shows", to: "pages#create_show"
 
   # get "logo", to: "pages#logo"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
